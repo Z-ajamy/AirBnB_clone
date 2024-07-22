@@ -253,7 +253,7 @@ python3 -m unittest discover tests
 ## Authors
 
 <details>
-  <summary>Godswill Kalu</summary>
+  <summary>Abd_al-rahman Ajamy</summary>
   <ul>
     <li><a href="https://www.github.com/Z-ajamy">GitHub</a></li>
     <li><a href="abdorahman0283@gmail.com">Email</a></li>
