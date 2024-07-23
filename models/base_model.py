@@ -63,11 +63,11 @@ class BaseModel:
             >>> 'updated_at' in base_dict
             True
         """
-        dect = self.__dict__.copy()
-        dect['created_at'] = self.created_at.isoformat()
-        dect['updated_at'] = self.updated_at.isoformat()
-        dect["__class__"] = type(self).__name__
-        return dect
+        rdict = self.__dict__.copy()
+        rdict["created_at"] = self.created_at.isoformat()
+        rdict["updated_at"] = self.updated_at.isoformat()
+        rdict["__class__"] = self.__class__.__name__
+        return rdict
     
     def __str__(self):
         """Return a string representation of the instance.
