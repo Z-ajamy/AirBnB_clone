@@ -69,7 +69,7 @@ class BaseModel:
         dect['updated_at'] = self.updated_at.isoformat()
         dect["__class__"] = type(self).__name__
         return dect
-    property
+    @property
     def __str__(self):
         """Return a string representation of the instance.
 
