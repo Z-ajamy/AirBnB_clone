@@ -39,7 +39,8 @@ class BaseModel:
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
-
+        self.__str__ = "[{}] ({}) {}".format(
+            type(self).__name__, self.id, self.__dict__)
     def save(self):
         """Update the `updated_at` timestamp to the current time."""
         self.updated_at = datetime.datetime.now()
@@ -68,7 +69,7 @@ class BaseModel:
         dect['updated_at'] = self.updated_at.isoformat()
         dect["__class__"] = type(self).__name__
         return dect
-
+    property
     def __str__(self):
         """Return a string representation of the instance.
 
