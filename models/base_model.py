@@ -12,7 +12,7 @@ class BaseModel:
         self.updated_at = datetime.now()
     def to_dict(self):
         dic = self.__dict__
-        dic["__clss__"] = type(self).__name__
+        dic["__class__"] = type(self).__name__
         dic["created_at"] = datetime.isoformat(self.created_at)
         dic["updated_at"] = datetime.isoformat(self.updated_at)
         return dic
