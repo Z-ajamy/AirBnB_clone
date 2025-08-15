@@ -9,10 +9,10 @@ class BaseModel:
     def __str__(self):
         return("[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__))
     def save(self):
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.utcnow()
     def to_dict(self):
         dic = self.__dict__.copy()
         dic["__class__"] = type(self).__name__
-        dic["created_at"] = datetime.isoformat(self.created_at)
-        dic["updated_at"] = datetime.isoformat(self.updated_at)
+        dic["created_at"] = self.created_at.isoformat()
+        dic["updated_at"] = self.updated_at.isoformat()
         return dic
