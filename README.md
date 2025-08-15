@@ -1,61 +1,45 @@
-# 0x00. AirBnB Clone - The Console
+# 0x00. AirBnB clone - The console
 
-## Table of Contents
-* [Introduction](#introduction)
-* [Environment](#environment)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Testing](#testing)
-* [Authors](#authors)
+## Project Overview
 
-## Introduction
+This project is the first step towards building a full web application: an AirBnB clone. The console is a command interpreter that allows you to manage AirBnB objects through a command-line interface. This foundational piece will be used throughout the subsequent projects to handle HTML/CSS templating, database storage, API development, and front-end integration.
 
-This project is a team effort to build a clone of [AirBnB](https://www.airbnb.com/). The first step in this project is to create a command interpreter to manage the backend of the AirBnB clone. This console will allow us to create, update, retrieve, and delete different objects, simulating the backend functionality of the AirBnB website.
+## Description
 
-The console performs the following tasks:
-* Create a new object
-* Retrieve an object from a file
-* Perform operations on objects
-* Destroy an object
+The console application provides a simple command-line interface to:
+- Create new objects (User, State, City, Place, etc.)
+- Retrieve objects from files or databases
+- Perform operations on objects (count, compute stats, etc.)
+- Update attributes of objects
+- Destroy objects
+- Store and persist objects to a JSON file
 
-### Storage
+This project implements the fundamental concepts of object-oriented programming, serialization/deserialization, and file storage that form the backbone of the complete AirBnB clone application.
 
-All classes are managed by the `Storage` engine in the `FileStorage` class, which handles the serialization and deserialization of JSON files to persist the objects.
+## Command Interpreter
 
-## Environment
+### How to Start
 
-The project is developed and tested in the following environment:
+To start the console, navigate to the project directory and run:
 
-<!-- ubuntu -->
-<a href="https://ubuntu.com/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Ubuntu&color=E95420&logo=Ubuntu&logoColor=E95420&labelColor=2F333A" alt="Ubuntu"></a> <!-- bash --> <a href="https://www.gnu.org/software/bash/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=GNU%20Bash&color=4EAA25&logo=GNU%20Bash&logoColor=4EAA25&labelColor=2F333A" alt="Bash"></a> <!-- python--> <a href="https://www.python.org" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Python&color=FFD43B&logo=python&logoColor=3776AB&labelColor=2F333A" alt="Python"></a> <!-- vim --> <a href="https://www.vim.org/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Vim&color=019733&logo=Vim&logoColor=019733&labelColor=2F333A" alt="Vim"></a> <!-- vs code --> <a href="https://code.visualstudio.com/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Visual%20Studio%20Code&color=5C2D91&logo=Visual%20Studio%20Code&logoColor=5C2D91&labelColor=2F333A" alt="VSCode"></a> <!-- git --> <a href="https://git-scm.com/" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=Git&color=F05032&logo=Git&logoColor=F05032&labelColor=2F333A" alt="Git"></a> <!-- github --> <a href="https://github.com" target="_blank"> <img height="" src="https://img.shields.io/static/v1?label=&message=GitHub&color=181717&logo=GitHub&logoColor=f2f2f2&labelColor=2F333A" alt="GitHub"></a>
+```bash
+$ ./console.py
+```
 
-* **Style Guidelines:**
-  * [pycodestyle (version 2.8.*)](https://pypi.org/project/pycodestyle/)
-  * [PEP8](https://pep8.org/)
+Or alternatively:
 
-All development and testing were conducted on an Ubuntu 20.04 LTS operating system using Python 3.8.5. Editors used include VIM, VSCode, and Emacs. Version control is managed with Git.
+```bash
+$ python3 console.py
+```
 
-## Installation
+You should see the prompt `(hbnb)` indicating that the console is ready to accept commands.
 
-To set up the project locally, follow these steps:
+### How to Use
 
-1. **Clone the Repository**
-   ```sh
-   git clone https://github.com/yourusername/AirBnB_clone.git
-   cd AirBnB_clone
-   ```
+The console supports two modes:
 
-2. **Make the Console Executable**
-   ```sh
-   chmod +x console.py
-   ```
-
-### Execution
-
-You can run the console in either interactive or non-interactive mode.
-
-**Interactive Mode:**
-```sh
+#### Interactive Mode
+```bash
 $ ./console.py
 (hbnb) help
 
@@ -63,199 +47,190 @@ Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
 
-(hbnb)
+(hbnb) 
 (hbnb) quit
 $
 ```
 
-**Non-interactive Mode:**
-```sh
+#### Non-Interactive Mode
+```bash
 $ echo "help" | ./console.py
 (hbnb)
 
 Documented commands (type help <topic>):
 ========================================
 EOF  help  quit
-(hbnb)
-$
-$ cat test_help
-help
-$
-$ cat test_help | ./console.py
-(hbnb)
-
-Documented commands (type help <topic>):
-========================================
-EOF  help  quit
-(hbnb)
+(hbnb) 
 $
 ```
 
-## Usage
+### Available Commands
 
-Start the console in interactive mode:
-```sh
-$ ./console.py
-(hbnb)
-```
+| Command | Description | Usage |
+|---------|-------------|--------|
+| `create` | Creates a new instance of a class | `create <class_name>` |
+| `show` | Displays string representation of an instance | `show <class_name> <id>` |
+| `destroy` | Deletes an instance based on class name and id | `destroy <class_name> <id>` |
+| `all` | Displays all instances of a class or all instances | `all` or `all <class_name>` |
+| `update` | Updates an instance based on class name and id | `update <class_name> <id> <attribute> "<value>"` |
+| `count` | Counts the number of instances of a class | `<class_name>.count()` |
+| `quit` | Exits the console | `quit` |
+| `EOF` | Exits the console (Ctrl+D) | `EOF` |
+| `help` | Shows help information | `help` or `help <command>` |
 
-Use `help` to see the available commands:
-```sh
-(hbnb) help
+### Classes
 
-Documented commands (type help <topic>):
-========================================
-EOF  all  count  create  destroy  help  quit  show  update
+The following classes are available:
+- `BaseModel`: Base class for all other classes
+- `User`: User information
+- `State`: State information
+- `City`: City information  
+- `Amenity`: Amenity information
+- `Place`: Place information
+- `Review`: Review information
 
-(hbnb)
-```
+### Examples
 
-Quit the console:
-```sh
-(hbnb) quit
-$
-```
-
-### Commands
-
-The commands are displayed in the following format:
-*Command / usage / example with output*
-
-**Create**
-```sh
-create <class>
-```
-Creates a new instance of a given class. The class' ID is printed and the instance is saved to the file `file.json`.
-```sh
+#### Creating Objects
+```bash
 (hbnb) create BaseModel
-6cfb47c4-a434-4da7-ac03-2122624c3762
-(hbnb)
-```
-
-**Show**
-```sh
-show <class> <id>
-```
-Displays the string representation of an instance based on the class name and id.
-```sh
-(hbnb) show BaseModel 6cfb47c4-a434-4da7-ac03-2122624c3762
-[BaseModel] (a) [BaseModel] (6cfb47c4-a434-4da7-ac03-2122624c3762) {'id': '6cfb47c4-a434-4da7-ac03-2122624c3762', 'created_at': datetime.datetime(2021, 11, 14, 3, 28, 45, 571360), 'updated_at': datetime.datetime(2021, 11, 14, 3, 28, 45, 571389)}
-(hbnb)
-```
-
-**Destroy**
-```sh
-destroy <class> <id>
-```
-Deletes an instance of a given class with a given ID and updates `file.json`.
-```sh
+49faff9a-6318-451f-87b6-910505c55907
 (hbnb) create User
-0c98d2b8-7ffa-42b7-8009-d9d54b69a472
-(hbnb) destroy User 0c98d2b8-7ffa-42b7-8009-d9d54b69a472
-(hbnb) show User 0c98d2b8-7ffa-42b7-8009-d9d54b69a472
-** no instance found **
-(hbnb)
+2dd6ef5c-467c-4f82-9521-a772ea7d84e9
 ```
 
-**All**
-```sh
-all [<class>]
+#### Showing Objects
+```bash
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'updated_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903300)}
 ```
-Prints all string representations of all instances or instances of a specified class.
-```sh
-(hbnb) create BaseModel
-e45ddda9-eb80-4858-99a9-226d4f08a629
+
+#### Displaying All Objects
+```bash
+(hbnb) all
+["[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'updated_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903300)}"]
+
 (hbnb) all BaseModel
-["[BaseModel] (4c8f7ebc-257f-4ed1-b26b-e7aace459897) [BaseModel] (4c8f7ebc-257f-4ed1-b26b-e7aace459897) {'id': '4c8f7ebc-257f-4ed1-b26b-e7aace459897', 'created_at': datetime.datetime(2021, 11, 13, 22, 19, 19, 447155), 'updated_at': datetime.datetime(2021, 11, 13, 22, 19, 19, 447257), 'name': 'My First Model', 'my_number': 89}"]
+["[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'updated_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903300)}"]
 ```
 
-**Count**
-```sh
-count <class>
+#### Updating Objects
+```bash
+(hbnb) update BaseModel 49faff9a-6318-451f-87b6-910505c55907 first_name "Betty"
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'first_name': 'Betty', 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2017, 10, 2, 3, 10, 25, 903293), 'updated_at': datetime.datetime(2017, 10, 2, 3, 11, 3, 49401)}
 ```
-Prints the number of instances of a given class.
-```sh
-(hbnb) create City
-4e01c33e-2564-42c2-b61c-17e512898bad
-(hbnb) create City
-e952b772-80a5-41e9-b728-6bc4dc5c21b4
-(hbnb) count City
+
+#### Alternative Syntax
+The console also supports alternative method call syntax:
+```bash
+(hbnb) User.count()
 2
-(hbnb)
+(hbnb) User.all()
+(hbnb) User.show("246c227a-d5c1-403d-9bc7-6a47bb9f0f68")
+(hbnb) User.destroy("246c227a-d5c1-403d-9bc7-6a47bb9f0f68")
+(hbnb) User.update("38f22813-2753-4d42-b37c-57a17f1e4f88", "first_name", "John")
+(hbnb) User.update("38f22813-2753-4d42-b37c-57a17f1e4f88", {'first_name': "John", "age": 89})
 ```
 
-**Update**
-```sh
-update <class> <id> <attribute name> "<attribute value>"
+#### Destroying Objects
+```bash
+(hbnb) destroy BaseModel 49faff9a-6318-451f-87b6-910505c55907
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907
+** no instance found **
 ```
-Updates an instance based on the class name, id, and kwargs passed, and updates `file.json`.
+
+## Project Structure
+
+```
+airbnb_clone/
+├── console.py          # Main console application
+├── models/            # Directory containing all model classes
+│   ├── __init__.py
+│   ├── base_model.py  # BaseModel class
+│   ├── user.py        # User class
+│   ├── state.py       # State class
+│   ├── city.py        # City class
+│   ├── amenity.py     # Amenity class
+│   ├── place.py       # Place class
+│   ├── review.py      # Review class
+│   └── engine/        # Storage engine
+│       ├── __init__.py
+│       └── file_storage.py
+├── tests/             # Unit tests
+└── README.md          # This file
+```
+
+## Storage
+
+All objects are stored in a JSON file (`file.json`) using the FileStorage class. The storage system handles:
+- Serialization of objects to JSON format
+- Deserialization of JSON data back to objects
+- Automatic saving and loading of data
+- Object persistence between console sessions
 
 ## Testing
 
-All tests are defined in the `tests` folder.
+To run the unit tests:
 
-### Documentation
+```bash
+# Run all tests
+$ python3 -m unittest discover tests
 
-* **Modules:**
-  ```sh
-  python3 -c 'print(__import__("my_module").__doc__)'
-  ```
+# Run specific test file
+$ python3 -m unittest tests/test_models/test_base_model.py
 
-* **Classes:**
-  ```sh
-  python3 -c 'print(__import__("my_module").MyClass.__doc__)'
-  ```
+# Run specific test class
+$ python3 -m unittest tests.test_models.test_base_model.TestBaseModel
 
-* **Functions (inside and outside
-
- a class):**
-  ```sh
-  python3 -c 'print(__import__("my_module").my_function.__doc__)'
-  ```
-
-  and
-
-  ```sh
-  python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'
-  ```
-
-### Python Unit Tests
-
-* **unittest module**
-* **File extension:** `.py`
-* **Files and folders start with:** `test_`
-* **Organization:** for `models/base.py`, unit tests in: `tests/test_models/test_base.py`
-* **Execution command:**
-  ```sh
-  python3 -m unittest discover tests
-  ```
-
-  or:
-
-  ```sh
-  python3 -m unittest tests/test_models/test_base.py
-  ```
-
-### Running tests in interactive mode
-
-```sh
-echo "python3 -m unittest discover tests" | bash
+# Run with verbose output
+$ python3 -m unittest discover tests -v
 ```
 
-### Running tests in non-interactive mode
+## Requirements
 
-To run the tests in non-interactive mode and discover all the tests, use the command:
+- Python 3.8.5 or higher
+- All files should be executable
+- Code should follow PEP 8 style guidelines
+- All modules, classes, and functions must have proper documentation
 
-```sh
-python3 -m unittest discover tests
+## Installation
+
+1. Clone the repository:
+```bash
+$ git clone https://github.com/your-username/AirBnB_clone.git
 ```
 
-## Authors
+2. Navigate to the project directory:
+```bash
+$ cd AirBnB_clone
+```
 
-<details>
-  <summary>Abd_al-rahman Ajamy</summary>
-  <ul>
-    <li><a href="https://www.github.com/Z-ajamy">GitHub</a></li>
-    <li><a href="abdorahman0283@gmail.com">Email</a></li>
-  </ul>
-</details>
+3. Make the console executable:
+```bash
+$ chmod +x console.py
+```
+
+4. Run the console:
+```bash
+$ ./console.py
+```
+
+## Author
+
+**Abd_al-rahman Ajamy**  
+📧 Email: [abdorahman0283@gmail.com](mailto:abdorahman0283@gmail.com)
+
+## License
+
+This project is part of the ALX Software Engineering program.
+
+## Acknowledgments
+
+- ALX Africa
+- Holberton School
+- All contributors and reviewers
+
+---
+
+*This project is the foundation for a complete web application that will include HTML/CSS templating, database storage, API development, and front-end integration in subsequent phases.*
