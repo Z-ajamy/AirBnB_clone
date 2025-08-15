@@ -1,12 +1,15 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
-from datetime import datetime
+"""Doc
+"""
+from models.tmp_base_model import *
+from models.tmp_base_model import BaseModel
 
-bm = BaseModel()
-bm.updated_at = datetime.utcnow()
-d_json = bm.to_dict()
-print(type(d_json))
-print(type(d_json['id']))
-print(type(d_json['created_at']))
-print(type(d_json['__class__']))
-print(d_json['__class__'])
+
+class BaseModel(BaseModel):
+    """Doc
+    """
+
+    def save(self):
+        """Doc
+        """
+        pass
