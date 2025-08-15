@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import models
 from uuid import uuid4
 from datetime import datetime
 
@@ -16,6 +17,8 @@ class BaseModel:
                     self.__dict__[k] = datetime.strptime(v, tform)
                 else:
                     self.__dict__[k] = v
+        else:
+            models.storage.new(self)
 
     def save(self):
         self.updated_at = datetime.today()
