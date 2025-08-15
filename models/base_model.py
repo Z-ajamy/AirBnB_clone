@@ -3,16 +3,15 @@ import uuid
 from datetime import datetime
 class BaseModel:
     def __init__(self, *args, **kwargs):
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.utcnow()
+        self.updated_at = datetime.utcnow()
         if kwargs:
             for i in kwargs:
                 if i != "__class__" and i != "created_at" and i != "updated_at":
                     setattr(self, i, kwargs[i])
                 elif i == "created_at" or i == "updated_at":
                     setattr(self, i, datetime.fromisoformat(kwargs[i]))
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
 
 
     def __str__(self):
