@@ -18,14 +18,13 @@ class FileStorage:
         jsdata = {}
         for i in FileStorage.__objects:
             jsdata[i] = FileStorage.__objects[i].to_dict()
-        with open(self.__file_path, "w") as f:
+        with open(FileStorage.__file_path, "w") as f:
             json.dump(jsdata, f)
 
     def reload(self):
-        f_path = Path(self.__file_path)
+        f_path = Path(FileStorage.__file_path)
         if f_path.exists():
-            with open(self.__file_path, "r") as f:
+            with open(FileStorage.__file_path, "r") as f:
                 jsdata = json.load(f)
                 for i in jsdata:
-                    temp = BaseModel(jsdata[i])
-                    self.__objects[i] = temp
+                    self.new(eval(jsdata[i]["__class__"])(jsdata[i]))

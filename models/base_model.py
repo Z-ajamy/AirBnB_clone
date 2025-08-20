@@ -21,9 +21,11 @@ class BaseModel:
 
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+    
     def save(self):
         self.updated_at = datetime.utcnow()
         models.storage.save()
+        
     def to_dict(self):
         dic = self.__dict__.copy()
         dic["__class__"] = self.__class__.__name__
