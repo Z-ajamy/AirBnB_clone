@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+Entry point of the command interpreter for the HBNB project.
+"""
+
 import cmd
 
 class HBNBCommand(cmd.Cmd):
