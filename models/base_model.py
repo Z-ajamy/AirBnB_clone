@@ -5,18 +5,20 @@ import models
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
         if kwargs:
             for i in kwargs:
-                if i != "__class__":
-                    if i == "created_at" or i == "updated_at":
-                        date = datetime.fromisoformat(kwargs[i])
-                        setattr(self, i, date)
-                    else:
-                        setattr(self, i, kwargs[i])
+                if i == "__class__":
+                    continue
+                elif i == "created_at" or i == "updated_at":
+                    date = datetime.fromisoformat(kwargs[i])
+                    setattr(self, i, date)
+                else:
+                    setattr(self, i, kwargs[i])
         else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+    
             models.storage.new(self)
 
     def __str__(self):

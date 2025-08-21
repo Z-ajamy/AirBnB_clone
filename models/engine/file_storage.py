@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import json
 from pathlib import Path
-from models.base_model import BaseModel
 
 class FileStorage:
     __file_path = "file.json"
@@ -11,7 +10,7 @@ class FileStorage:
         return FileStorage.__objects
 
     def new(self, obj):
-        key = str(type(obj).__name__) + "." + obj.id
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
@@ -27,4 +26,9 @@ class FileStorage:
             with open(FileStorage.__file_path, "r") as f:
                 jsdata = json.load(f)
                 for i in jsdata:
-                    self.new(eval(jsdata[i]["__class__"])(jsdata[i]))
+                    cls_name = jsdata[i]["__class__"]
+                    if cls_name == "BaseModel":
+                        from models.base_model import BaseModel
+                        obj = BaseModel(**jsdata[i])
+                        self.new(obj)
+
