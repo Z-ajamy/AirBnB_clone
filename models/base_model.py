@@ -14,6 +14,7 @@ class BaseModel:
                     setattr(self, i, date)
                 else:
                     setattr(self, i, kwargs[i])
+        
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
