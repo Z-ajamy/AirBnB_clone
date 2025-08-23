@@ -5,12 +5,13 @@ Entry point of the command interpreter for the HBNB project.
 from models.base_model import BaseModel
 from models import storage
 
+import shlex
 import cmd
 
 class HBNBCommand(cmd.Cmd):
 
-    set_of_classes = {
-        "BaseModel"
+    dict_of_classes = {
+        "BaseModel": BaseModel
     }
 
     prompt = "(hbnb) "
@@ -32,10 +33,10 @@ class HBNBCommand(cmd.Cmd):
         except IndexError:
             print("** class name missing **")
             return
-        if cls_name == "BaseModel":
-            temp = BaseModel()
-            print(temp.id)
+        if cls_name in self.dict_of_classes:
+            temp = self.dict_of_classes[cls_name]()
             temp.save()
+            print(temp.id)
         else:
             print("** class doesn't exist **")
 
@@ -47,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
         except IndexError:
             print("** class name missing **")
             return
-        if cls_name not in self.set_of_classes:
+        if cls_name not in self.dict_of_classes:
             print("** class doesn't exist **")
             return
         try:
@@ -71,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
         except IndexError:
             print("** class name missing **")
             return
-        if cls_name not in self.set_of_classes:
+        if cls_name not in self.dict_of_classes:
             print("** class doesn't exist **")
             return
         try:
@@ -83,6 +84,7 @@ class HBNBCommand(cmd.Cmd):
         all_objects = storage.all()
         if obj_id in all_objects:
             del all_objects[obj_id]
+            storage.save()
         else:
             print("** no instance found **")
 
@@ -91,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         look_for = '.'
         if line:
-            if line in self.set_of_classes:
+            if line in self.dict_of_classes:
                 look_for = line
             else:
                 print("** class doesn't exist **")
@@ -109,6 +111,62 @@ class HBNBCommand(cmd.Cmd):
             str_all = str_all[:-2] + "]"
         print(str_all)
 
+
+
+#---------------------------------------------------------
+    #update <class name> <id> <attribute name> "<attribute value>"
+    def do_update(self, line):
+        args = shlex.split(line)
+        try:
+            cls_name = args[0]
+        except IndexError:
+            print("** class name missing **")
+            return
+        if cls_name not in self.dict_of_classes:
+            print("** class doesn't exist **")
+            return
+        try:
+            id = args[1]
+        except IndexError:
+            print("** instance id missing **")
+            return
+        obj_id = "{}.{}".format(cls_name, id)
+        all_odjs = storage.all()
+        if obj_id not in all_odjs:
+            print("** no instance found **")
+            return 
+        try:
+            attr_name = args[2]
+        except IndexError:
+            print("** attribute name missing **")
+            return
+        try:
+            value = args[3]
+        except IndexError:
+            print("** value missing **")
+            return
+        if attr_name == "id" or attr_name == "created_at" or attr_name == "updated_at":
+            return
+        if len(args > 4):
+            return
+        
+        if value.startswith('"') and value.endswith('"'):
+            value = value[1:-1]
+        else:
+            try:
+                value = int(value)
+            except ValueError:
+                try:
+                    value = float(value)
+                except ValueError:
+                    pass
+
+        setattr(all_odjs[obj_id], attr_name, value)
+        all_odjs[obj_id].save()
+
+
+        setattr(all_odjs[obj_id], attr_name, value)
+        all_odjs[obj_id].save()
 
 
 
