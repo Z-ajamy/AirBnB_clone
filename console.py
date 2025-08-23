@@ -69,31 +69,36 @@ class HBNBCommand(cmd.Cmd):
             return self.do_destroy(f"{cls_name} {obj_id}")
 
         elif command == "update":
-            tokens = args.split(",", 1)
-            obj_id = tokens[0].strip().strip('"').strip("'")
-
-            if len(tokens) == 1:
-                print("** attribute name missing **")
+            try:
+                obj_id, rest = args_str.split(',', 1)
+                obj_id = obj_id.strip('\'" ')
+                rest = rest.strip()
+            except (ValueError, IndexError):
+                print("** instance id missing **")
                 return
 
-            rest = tokens[1].strip()
-            if rest.startswith("{") and rest.endswith("}"):
+            if rest.startswith('{') and rest.endswith('}'):
                 try:
-                    attr_dict = json.loads(rest.replace("'", '"'))
-                except Exception:
-                    print("** invalid dictionary **")
-                    return
+                    attr_dict = ast.literal_eval(rest)
+                    if not isinstance(attr_dict, dict):
+                        raise ValueError
+                except (ValueError, SyntaxError):
+                    return super().default(line)
+                
                 for key, value in attr_dict.items():
-                    self.do_update(f"{cls_name} {obj_id} {key} {value}")
+                    if isinstance(value, str):
+                        self.do_update(f'{cls_name} {obj_id} "{key}" "{value}"')
+                    else:
+                        self.do_update(f'{cls_name} {obj_id} "{key}" {value}')
+
             else:
-                parts = rest.split(",", 1)
                 try:
-                    attr_name = parts[0].strip().strip('"').strip("'")
-                    attr_value = parts[1].strip()
-                except IndexError:
-                    print("** value missing **")
-                    return
-                self.do_update(f'{cls_name} {obj_id} {attr_name} {attr_value}')
+                    attr_name, attr_value = rest.split(',', 1)
+                    attr_name = attr_name.strip('\'" ')
+                    attr_value = attr_value.strip()
+                    self.do_update(f'{cls_name} {obj_id} {attr_name} {attr_value}')
+                except (ValueError, IndexError):
+                     return super().default(line)
 
         else:
             return super().default(line)
