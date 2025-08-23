@@ -69,36 +69,24 @@ class HBNBCommand(cmd.Cmd):
             return self.do_destroy(f"{cls_name} {obj_id}")
 
         elif command == "update":
-            try:
-                obj_id, rest = args_str.split(',', 1)
-                obj_id = obj_id.strip('\'" ')
-                rest = rest.strip()
-            except (ValueError, IndexError):
+            tokens = args.split(",", 2)  # نوقف عند 3 أجزاء فقط
+            if len(tokens) < 2:
                 print("** instance id missing **")
                 return
+            obj_id = tokens[0].strip().strip('"').strip("'")
 
-            if rest.startswith('{') and rest.endswith('}'):
-                try:
-                    attr_dict = ast.literal_eval(rest)
-                    if not isinstance(attr_dict, dict):
-                        raise ValueError
-                except (ValueError, SyntaxError):
-                    return super().default(line)
-                
-                for key, value in attr_dict.items():
-                    if isinstance(value, str):
-                        self.do_update(f'{cls_name} {obj_id} "{key}" "{value}"')
-                    else:
-                        self.do_update(f'{cls_name} {obj_id} "{key}" {value}')
+            if len(tokens) < 3:
+                print("** attribute name missing **")
+                return
 
-            else:
-                try:
-                    attr_name, attr_value = rest.split(',', 1)
-                    attr_name = attr_name.strip('\'" ')
-                    attr_value = attr_value.strip()
-                    self.do_update(f'{cls_name} {obj_id} {attr_name} {attr_value}')
-                except (ValueError, IndexError):
-                     return super().default(line)
+            attr_name = tokens[1].strip().strip('"').strip("'")
+            try:
+                attr_value = tokens[2].strip()
+            except IndexError:
+                print("** value missing **")
+                return
+
+            return self.do_update(f'{cls_name} {obj_id} {attr_name} {attr_value}')
 
         else:
             return super().default(line)
