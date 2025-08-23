@@ -31,4 +31,8 @@ class FileStorage:
                         from models.base_model import BaseModel
                         obj = BaseModel(**jsdata[i])
                         self.new(obj)
+                    if cls_name == "User":
+                        from models.user import User
+                        obj = User(**jsdata[i])
+                        self.save()
 

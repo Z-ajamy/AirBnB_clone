@@ -3,6 +3,8 @@
 Entry point of the command interpreter for the HBNB project.
 """
 from models.base_model import BaseModel
+from models.user import User
+
 from models import storage
 
 import shlex
@@ -11,7 +13,8 @@ import cmd
 class HBNBCommand(cmd.Cmd):
 
     dict_of_classes = {
-        "BaseModel": BaseModel
+        "BaseModel": BaseModel,
+        "User": User
     }
 
     prompt = "(hbnb) "
