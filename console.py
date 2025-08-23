@@ -10,9 +10,9 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
-
 from models import storage
 
+import re
 import shlex
 import cmd
 
@@ -42,19 +42,45 @@ class HBNBCommand(cmd.Cmd):
 #---------------------------------------------------------
 
 #User.all()
-    def default(self, line):
-        commands = {
-            "all()": self.do_all,
-            "count()": self.count
-        }
-        if "." in line:
-            args = line.split(".")
-            cls_name = args[0]
-            command_name = args[1]
-            if command_name in commands:
-                return commands[command_name](cls_name)
-        return super().default(line)
+        def default(self, line):
+        match = re.match(r"(\w+)\.(\w+)\((.*)\)", line)
+        if not match:
+            return super().default(line)
 
+        cls_name, command, args = match.groups()
+
+        if command == "all":
+            return self.do_all(cls_name)
+
+        if command == "count":
+            objs = [o for o in storage.all().values() if o.__class__.__name__ == cls_name]
+            print(len(objs))
+            return
+
+        if command == "show":
+            return self.do_show(f"{cls_name} {args.strip('\"')}")
+
+        if command == "destroy":
+            return self.do_destroy(f"{cls_name} {args.strip('\"')}")
+
+        if command == "update":
+            parts = args.split(",", 1)
+            obj_id = parts[0].strip().strip('"')
+
+            # update باستخدام dict
+            if len(parts) > 1 and "{" in parts[1]:
+                dict_obj = self.parse_dict(parts[1].strip())
+                if dict_obj:
+                    for k, v in dict_obj.items():
+                        self.do_update(f'{cls_name} {obj_id} {k} "{v}"')
+                return
+
+            # update عادي (id, attr, value)
+            args_list = [p.strip().strip('"') for p in args.split(",")]
+            if len(args_list) >= 3:
+                return self.do_update(f"{cls_name} {args_list[0]} {args_list[1]} \"{args_list[2]}\"")
+
+        return super().default(line)
 #---------------------------------------------------------
 
 
