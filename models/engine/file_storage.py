@@ -23,16 +23,18 @@ class FileStorage:
     def reload(self):
         f_path = Path(FileStorage.__file_path)
         if f_path.exists():
+                        
+            from models.base_model import BaseModel
+            from models.user import User
+            from models.state import State
+            from models.city import City
+            from models.place import Place
+            from models.amenity import Amenity
+            from models.review import Review
+
             with open(FileStorage.__file_path, "r") as f:
                 jsdata = json.load(f)
                 for i in jsdata:
                     cls_name = jsdata[i]["__class__"]
-                    if cls_name == "BaseModel":
-                        from models.base_model import BaseModel
-                        obj = BaseModel(**jsdata[i])
-                        self.new(obj)
-                    if cls_name == "User":
-                        from models.user import User
-                        obj = User(**jsdata[i])
-                        self.new(obj)
+                    self.new(eval(cls_name)(**jsdata[i]))
 

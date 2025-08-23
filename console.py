@@ -4,6 +4,12 @@ Entry point of the command interpreter for the HBNB project.
 """
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+
 
 from models import storage
 
@@ -14,7 +20,12 @@ class HBNBCommand(cmd.Cmd):
 
     dict_of_classes = {
         "BaseModel": BaseModel,
-        "User": User
+        "User": User,
+        "State": State,
+        "City": City,
+        "Place": Place,
+        "Amenity": Amenity,
+        "Review": Review
     }
 
     prompt = "(hbnb) "
