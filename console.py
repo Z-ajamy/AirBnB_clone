@@ -10,6 +10,7 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
+
 from models import storage
 
 import re
@@ -41,46 +42,63 @@ class HBNBCommand(cmd.Cmd):
         pass
 #---------------------------------------------------------
 
-#User.all()
-        def default(self, line):
-        match = re.match(r"(\w+)\.(\w+)\((.*)\)", line)
+
+    def default(self, line):
+        match = re.match(r"^(\w+)\.(\w+)\((.*)\)$", line)
         if not match:
             return super().default(line)
 
         cls_name, command, args = match.groups()
 
+        if cls_name not in self.dict_of_classes:
+            print("** class doesn't exist **")
+            return
+
         if command == "all":
             return self.do_all(cls_name)
 
-        if command == "count":
-            objs = [o for o in storage.all().values() if o.__class__.__name__ == cls_name]
-            print(len(objs))
-            return
+        elif command == "count":
+            return self.count(cls_name)
 
-        if command == "show":
-            return self.do_show(f"{cls_name} {args.strip('\"')}")
+        elif command == "show":
+            obj_id = args.strip().strip('"').strip("'")
+            return self.do_show(f"{cls_name} {obj_id}")
 
-        if command == "destroy":
-            return self.do_destroy(f"{cls_name} {args.strip('\"')}")
+        elif command == "destroy":
+            obj_id = args.strip().strip('"').strip("'")
+            return self.do_destroy(f"{cls_name} {obj_id}")
 
-        if command == "update":
-            parts = args.split(",", 1)
-            obj_id = parts[0].strip().strip('"')
+        elif command == "update":
+            tokens = args.split(",", 1)
+            obj_id = tokens[0].strip().strip('"').strip("'")
 
-            # update باستخدام dict
-            if len(parts) > 1 and "{" in parts[1]:
-                dict_obj = self.parse_dict(parts[1].strip())
-                if dict_obj:
-                    for k, v in dict_obj.items():
-                        self.do_update(f'{cls_name} {obj_id} {k} "{v}"')
+            if len(tokens) == 1:
+                print("** attribute name missing **")
                 return
 
-            # update عادي (id, attr, value)
-            args_list = [p.strip().strip('"') for p in args.split(",")]
-            if len(args_list) >= 3:
-                return self.do_update(f"{cls_name} {args_list[0]} {args_list[1]} \"{args_list[2]}\"")
+            rest = tokens[1].strip()
+            if rest.startswith("{") and rest.endswith("}"):
+                try:
+                    attr_dict = json.loads(rest.replace("'", '"'))
+                except Exception:
+                    print("** invalid dictionary **")
+                    return
+                for key, value in attr_dict.items():
+                    self.do_update(f"{cls_name} {obj_id} {key} {value}")
+            else:
+                parts = rest.split(",", 1)
+                try:
+                    attr_name = parts[0].strip().strip('"').strip("'")
+                    attr_value = parts[1].strip()
+                except IndexError:
+                    print("** value missing **")
+                    return
+                self.do_update(f'{cls_name} {obj_id} {attr_name} {attr_value}')
 
-        return super().default(line)
+        else:
+            return super().default(line)
+            
+
 #---------------------------------------------------------
 
 
