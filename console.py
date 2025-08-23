@@ -28,6 +28,7 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review
     }
 
+
     prompt = "(hbnb) "
 
     def do_quit(self, line):
@@ -38,6 +39,21 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
+#---------------------------------------------------------
+
+#User.all()
+    def default(self, line):
+        commands = {
+            "all()": self.do_all
+        }
+        if "." in line:
+            args = line.split(".")
+            cls_name = args[0]
+            command_name = args[1]
+            if command_name in commands:
+                return commands[command_name](cls_name)
+        return super().default(line)
+
 
 #---------------------------------------------------------
     def do_create(self, line):
