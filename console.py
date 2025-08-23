@@ -44,7 +44,8 @@ class HBNBCommand(cmd.Cmd):
 #User.all()
     def default(self, line):
         commands = {
-            "all()": self.do_all
+            "all()": self.do_all,
+            "count()": self.count
         }
         if "." in line:
             args = line.split(".")
@@ -53,6 +54,18 @@ class HBNBCommand(cmd.Cmd):
             if command_name in commands:
                 return commands[command_name](cls_name)
         return super().default(line)
+
+#---------------------------------------------------------
+
+
+    def count(self, cls_name):
+        res = 0
+        all_objects = storage.all()
+        for i in all_objects:
+            if all_objects[i].__class__.__name__ == cls_name:
+                res += 1
+        print(res)
+
 
 
 #---------------------------------------------------------
