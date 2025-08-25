@@ -4,6 +4,8 @@ header {
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
     display: flex;
+    align-items: center;
+    
 }
 
 .logo {
@@ -15,6 +17,6 @@ header {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    padding-left: 20px;
+    margin-left: 20px;
 
 }

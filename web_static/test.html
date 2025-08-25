@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AirBnb Clone</title>
+    <link rel="icon" href="images/hbnb_Logo.jpg" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #484848;
+            font-size: 14px;
+            font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        header {
+            background-color: white;
+            height: 70px;
+            width: 100%;
+            border-bottom: 1px solid #CCCCCC;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo {
+            width: 142px;
+            height: 60px;
+            background: url("images/hbnb_Logo.jpg") no-repeat center;
+            padding-left: 20px;
+            background-size: contain;
+        }
+
+        .container {
+            margin: auto;
+            max-width: 1000px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .filters {
+            background-color: white;
+            height: 70px;
+            width: 100%;
+            border: solid 1px #DDDDDD;
+            border-radius: 4px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: right;
+        }
+
+        section.filters button {
+            font-size: 18px;
+            color: white;
+            background-color: #FF5A5F;
+            height: 48px;
+            border: 0px;
+            border-radius: 4px;
+            width: 20%;
+            margin-right: 30px;
+            opacity: 1;
+        }
+
+        section.filters button:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            background-color: white;
+            height: 60px;
+            width: 100%;
+            border-top: 1px solid #CCCCCC;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+    </header>
+    <div class="container">
+        <section class="filters">
+            <button type="button">Search</button>
+        </section>
+    </div>
+    <footer>
+        Best School
+    </footer>
+</body>
+</html>
