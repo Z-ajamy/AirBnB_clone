@@ -1,16 +1,16 @@
 header{
-    background-color: white;
-    height: 70px;
     width: 100%;
+    height: 70px;
     border-bottom: 1px solid #CCCCCC;
-
 }
 
 .logo{
     height: 100%;
-    width: 20%;
+    width: 18%;
+
     background-image: url('../images/hbnb.png');
     background-repeat: no-repeat;
     background-size: contain;
-    margin-left: 20px;
+
+    margin-left: 15px;
 }
