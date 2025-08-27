@@ -43,7 +43,6 @@
 
 .amenities{
     order: 2;
-
 }
 
 .locations h3, .amenities h3{
@@ -52,7 +51,6 @@
     margin-top: 10px;
     padding: 0;
     margin-bottom: 3px;
-
 }
 
 .locations h4, .amenities h4{
