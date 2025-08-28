@@ -60,13 +60,11 @@
 
 }
 
-
-.container .places article .information *{
-
+.places .information > div {
     margin-right: 10px;
     margin-left: 10px;
-
 }
+
 .container .places article .user ,
 .container .places article .description{
     margin-top: 10px;
