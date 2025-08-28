@@ -37,7 +37,6 @@ Example:
 Author: HBNB Development Team
 """
 import json
-from pathlib import Path
 
 class FileStorage:
     """
@@ -268,9 +267,7 @@ class FileStorage:
             - Clears existing __objects and replaces with loaded data
             - Objects maintain all their attributes and functionality after reload
         """
-        f_path = Path(FileStorage.__file_path)
-        if f_path.exists():
-                        
+        try:
             from models.base_model import BaseModel
             from models.user import User
             from models.state import State
@@ -279,8 +276,13 @@ class FileStorage:
             from models.amenity import Amenity
             from models.review import Review
 
+            classes = {"BaseModel":BaseModel, "User":User,
+                    "State":State, "City":City, "Place":Place,
+                    "Amenity":Amenity, "Review":Review}
             with open(FileStorage.__file_path, "r") as f:
                 jsdata = json.load(f)
                 for i in jsdata:
                     cls_name = jsdata[i]["__class__"]
-                    self.new(eval(cls_name)(**jsdata[i]))
+                    self.new(classes[cls_name](**jsdata[i]))
+        except FileNotFoundError:
+            pass
