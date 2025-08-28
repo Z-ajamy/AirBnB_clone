@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/4-common.css">
+    <link rel="stylesheet" href="styles/3-header.css">
+    <link rel="stylesheet" href="styles/3-footer.css">
+    <link rel="stylesheet" href="styles/6-filters.css">
+    <link rel="stylesheet" href="styles/8-places.css">
+
+    <title>My Travel Site</title>
+    <link rel="icon" href="images/travel_icon.png" type="image/png">
+  </head>
+
+  <body>
+    <header>
+      <div class="logo"></div>
+    </header>
+
+    <div class="container">
+      <section class="filters">
+        <div class="locations">
+          <h3>Locations</h3>
+          <h4>California, New York...</h4>
+          <ul class="popover">
+            <li>
+              <h2>USA:</h2>
+              <ul>
+                <li>California</li>
+                <li>New York</li>
+              </ul>
+            </li>
+            <li>
+              <h2>Italy:</h2>
+              <ul>
+                <li>Rome</li>
+                <li>Milan</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="amenities">
+          <h3>Amenities</h3>
+          <h4>WiFi, Pool...</h4>
+          <ul class="popover">
+            <li>WiFi</li>
+            <li>Pool</li>
+            <li>Gym</li>
+            <li>Parking</li>
+          </ul>
+        </div>
+
+        <button>Search</button>
+      </section>
+
+      <section class="places">
+        <h1>Places</h1>
+
+        <article>
+          <h2>Luxury Villa in California</h2>
+          <div class="price_by_night">
+            <div class="val">$250</div>
+          </div>
+          <div class="information">
+            <div class="max_guest">6 guests</div>
+            <div class="number_rooms">4 rooms</div>
+            <div class="number_bathrooms">3 bathrooms</div>
+          </div>
+          <div class="user">
+            Owner: Alice Johnson
+          </div>
+          <div class="description">
+            A stunning villa with ocean view located in Malibu, California.
+          </div>
+        </article>
+
+        <article>
+          <h2>Apartment in New York City</h2>
+          <div class="price_by_night">
+            <div class="val">$180</div>
+          </div>
+          <div class="information">
+            <div class="max_guest">4 guests</div>
+            <div class="number_rooms">2 rooms</div>
+            <div class="number_bathrooms">2 bathrooms</div>
+          </div>
+          <div class="user">
+            Owner: Michael Smith
+          </div>
+          <div class="description">
+            Modern apartment located near Times Square, perfect for city lovers.
+          </div>
+        </article>
+
+        <article>
+          <h2>Cozy House in Rome</h2>
+          <div class="price_by_night">
+            <div class="val">$150</div>
+          </div>
+          <div class="information">
+            <div class="max_guest">3 guests</div>
+            <div class="number_rooms">2 rooms</div>
+            <div class="number_bathrooms">1 bathroom</div>
+          </div>
+          <div class="user">
+            Owner: Sofia Rossi
+          </div>
+          <div class="description">
+            Traditional Italian house located close to the Colosseum.
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <footer>
+      <div>Dream Travels</div>
+    </footer>
+  </body>
+</html>
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #484848;
+}
+
+.container{
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+header{
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.logo{
+    height: 100%;
+    width: 18%;
+
+    background-image: url('../images/hbnb.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    margin-left: 15px;
+}
+footer{
+    width: 100%;
+    height: 60px;
+
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #CCCCCC;
+
+    align-items: center;
+    justify-content: center;
+}
+.container .filters {
+  width: 100%;
+  height: 70px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.filters button {
+  width: 20%;
+  height: 48px;
+  font-size: 18px;
+  background-color: #FF5A5F;
+  border-radius: 4px;
+  color: #FFFFFF;
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.filters button:hover {
+  opacity: .9;
+}
+
+.locations,
+.amenities {
+  height: 100%;
+  width: 25%;
+  margin-left: 0px;
+  position: relative;
+}
+
+.locations {
+  border-right: 1px solid #DDDDDD;
+}
+
+.locations h3,
+.amenities h3 {
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 5px;
+  margin-left: 30px;
+}
+
+.locations h4,
+.amenities h4 {
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0;
+  margin-left: 30px;
+}
+
+.locations .popover,
+.amenities .popover {
+  background-color: #FAFAFA;
+  width: 100%;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  list-style-type: none;
+  padding-left: 30px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0;
+  box-sizing: border-box;
+}
+
+.locations:hover .popover,
+.amenities:hover .popover {
+  display: block;
+}
+
+.popover li h2 {
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.amenities .popover li {
+  font-size: 16px;
+  padding-bottom: 3px;
+}
+
+.locations .popover {
+  padding-bottom: 3px;
+}
+
+.amenities .popover {
+  padding-top: 8px;
+}
+.container .places{
+    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container h1{
+    width: 100%;
+    font-size: 30px;
+    box-sizing: border-box;
+}
+
+.container .places article{
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+    text-align: center;
+    padding-bottom: 0;
+    position: relative;
+}
+
+.container .places article h2{
+    font-size: 30px;
+    margin: 0;
+}
+
+.places article .price_by_night{
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    color: #FF5A5F;
+    border: 4px solid #FF5A5F;
+    border-radius: 50%;
+    font-size: 30px;
+    position: absolute;
+    top: 2.5%;
+    right: 2.5%;
+    padding: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .places article .information{
+    height: 80px;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+
+    margin-top: 10px;
+    padding-top: 10px;
+
+    display: flex;
+    justify-content: center;
+    
+
+
+}
+
+
+.container .places article .information *{
+
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+.container .places article .user ,
+.container .places article .description{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.places .information .max_guest{
+    background-image: url(../images/max_guest.png);
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    background-position-x: center;
+}
+
+.places .information .number_rooms{
+    background-image: url(../images/number_rooms.png);
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    background-position-x: center;
+}
+
+.places .information .number_bathrooms{
+    background-image: url(../images/number_bathrooms.png);
+    background-repeat: no-repeat;
+    padding-top: 50px;
+    background-position-x: center;
+}
